@@ -1,0 +1,87 @@
+<html>
+    <head></head>
+    <script>
+        function click1() {
+            document.getElementById("display").value += document.getElementById("1").value;
+        }
+        function click2() {
+            document.getElementById("display").value += document.getElementById("2").value;
+        }
+        function click3() {
+            document.getElementById("display").value += document.getElementById("3").value;
+        }
+        function click4() {
+            document.getElementById("display").value += document.getElementById("4").value;
+        }
+        function click5() {
+            document.getElementById("display").value += document.getElementById("5").value;
+        }
+        function click6() {
+            document.getElementById("display").value += document.getElementById("6").value;
+        }
+        function click7() {
+            document.getElementById("display").value += document.getElementById("7").value;
+        }
+        function click8() {
+            document.getElementById("display").value += document.getElementById("8").value;
+        }
+        function click9() {
+            document.getElementById("display").value += document.getElementById("9").value;
+        }
+        function click0() {
+            document.getElementById("display").value += document.getElementById("0").value;
+        }
+        function clickplus() {
+            document.getElementById("display").value += document.getElementById("+").value;
+        }
+        function clickminus() {
+            document.getElementById("display").value += document.getElementById("-").value;
+        }
+        function clickdiv() {
+            document.getElementById("display").value += document.getElementById("/").value;
+        }
+        function clickmult() {
+            document.getElementById("display").value += document.getElementById("*").value;
+        }
+        function clickC() {
+            document.getElementById("display").value = "";
+        }
+        function clickequal() {
+            document.getElementById("display").value = eval(document.getElementById("display").value);
+        }
+    </script>
+    <body>
+        <h1>Calculator</h1><br>
+        <form name="calc">
+            <table>
+                <tr>
+                    <td colspan="4"><input type=text name="display" value="" id="display"></td>
+                </tr>
+                <tr>
+                    <td><input type=button value="1" id="1" onclick="click1()"></td>
+                    <td><input type=button value="2" id="2" onclick="click2()"></td>
+                    <td><input type=button value="3" id="3" onclick="click3()"></td>
+                    <td><input type=button value="+" id="+" onclick="clickplus()"></td>
+                </tr>
+                <tr>
+                    <td><input type=button value="4" id="4" onclick="click4()"></td>
+                    <td><input type=button value="5" id="5" onclick="click5()"></td>
+                    <td><input type=button value="6" id="6" onclick="click6()"></td>
+                    <td><input type=button value="-" id="-" onclick="clickminus()"></td>
+                </tr>
+                <tr>
+                    <td><input type=button value="7" id="7" onclick="click7()"></td>
+                    <td><input type=button value="8" id="8" onclick="click8()"></td>
+                    <td><input type=button value="9" id="9" onclick="click9()"></td>
+                    <td><input type=button value="*" id="*" onclick="clickmult()"></td>
+                </tr>
+                <tr>
+                    <td><input type=button value="0" id="0" onclick="click0()"></td>
+                    <td><input type=button value="/" id="/" onclick="clickdiv()"></td>
+                    <td><input type=button value="=" id="=" onclick="clickequal()"></td>
+                    <td><input type=button value="C" id="C" onclick="clickC()"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
