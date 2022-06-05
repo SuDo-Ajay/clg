@@ -1,0 +1,9 @@
+.header {
+    float:right;
+    padding:40px;
+}
+
+.header a {
+    padding-left: 5px;
+    padding-right: 5px;
+}

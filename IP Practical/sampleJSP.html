@@ -1,0 +1,118 @@
+<%@page import="servlet.getState"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@page import = "java.sql.*" %>
+<%@page import = "java.sql.*" %>
+
+<%
+HttpSession s =  request.getSession();
+response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+if(s.getAttribute("name") != null) {
+	String name = s.getAttribute("name").toString();
+
+%>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title><%=name %>'s Dashboard</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+    	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+        <link rel = "stylesheet" href="./styles.css"/>
+        <link rel="stylesheet" href="charts.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    </head>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+	<body>
+	<% 
+    	
+		String status = getState.getStatusdb(name);
+		
+	%>
+			
+			<div class = "Header">
+			<p><img width=30 src="test-tube.png" usemap="#image-map" />Covid Case Tracker - India</p>
+
+			<div class="Header-Right">
+				
+	<form name="LogOut" action=LogoutServlet method="POST">
+		<input type="submit" value="Log-Out" name="statesearch" />
+	</form>
+				<a class="Active" href="./account.jsp"><img width=20 src="account.png" usemap="#image-map" /><%= name %></a>
+				<a class="Active" href="./indexl.jsp"><img width=20 src="track.png" usemap="#image-map" />Tracker</a>
+				<a class="Active" href="./dashboard.jsp"><img width=20 src="dashboard.png" usemap="#image-map" />Dashboard</a>
+			</div>
+		</div>
+		<div class="Logo-Circle">
+			<div class="Logo">
+				<lottie-player src="https://assets10.lottiefiles.com/packages/lf20_wv4mTG.json"  background="transparent"  speed="1"  style="width: 105px; height: 105px;"  loop autoplay></lottie-player>
+			</div>
+		</div>
+		<div class="Main-Text">
+			<h2 class="animate__fadeInDown">Covid Tracker - India<br></h2>
+			<h3>Welcome <%= name %> ! ! !</h3>
+			<h3> Infected : <%=status %></h3>
+		</div>
+	<main>
+		
+		<%
+		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","Shaunis@sh33p");
+		String tracked = getState.getStatedb(name);
+		String query = "select * from regional_data where statename='"+tracked+"';";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		    PreparedStatement ps = conn.prepareStatement(query);
+			ResultSet r2 = ps.executeQuery();
+			r2.next();
+			
+			long totalCases = r2.getLong("totalCases");  
+            long recoveries = r2.getLong("recoveries");
+            long deaths = r2.getLong("deaths");
+            long totalCasescap = totalCases + 100000 ;
+            long recoveriesCap = recoveries + 10000;
+            long deathscap = deaths + 2000;
+		%>
+	<section class = "dashboard-glass">
+		<div class = "dashboard-info">
+					
+			<h2>Tracked State : <%=tracked %></h2>
+            <h2>Informatics :</h2>
+            <table class="charts-css bar show-labels data-spacing-20" id="case-chart">
+                <caption> Case Count, Deaths and Recovered Informatics</caption>
+                <tr>
+                    <th scope="Total-cases"> Active Cases </th>
+                    <td style="--size: calc(<%=totalCases %>/8000000); --color: grey"><%=totalCases %></td>
+                </tr>
+                <tr>
+                    <th scope="Recoveries"> Recovery </th>
+                    <td style="--size: calc(<%=recoveries %>/8000000); --color: green"><%=recoveries %></td>
+                </tr>
+                <tr>
+                    <th scope="Deaths"> Deaths </th>
+                    <td style="--size: calc(<%=deaths %>/300000); --color: black"><%=deaths %></td>
+                </tr>
+            </table>
+		</div>
+	</section>
+	</main>
+    </body>
+</html>
+
+<%
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+%>
+
+<%
+}
+else {
+	response.sendRedirect("indexl.jsp");	
+}
+%>
+
+

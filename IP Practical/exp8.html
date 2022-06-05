@@ -1,0 +1,27 @@
+<!-- python -m http.server -->
+<!-- USE THE ABOVE COMMAND TO START SERVER AND THEN DO PARSING -->
+<html>
+    <head>
+        <title>XML Parsing</title>
+    </head>
+    <script>
+        function xmlparse() {
+            var xml = new XMLHttpRequest();
+            xml.open("GET","exp8.xml",false);
+            xml.send();
+
+            document.write("<html><body><table><tr><th>rollno</th><th>Name</th></tr>");
+
+            var resp = xml.responseXML;
+
+            for(var i=0 ; i<2 ; i++) {
+                var roll = resp.getElementsByTagName("rollno")[i].childNodes[0].nodeValue;
+                var name = resp.getElementsByTagName("name")[i].childNodes[0].nodeValue;
+                document.write("<tr><td>"+roll+"</td><td>"+name+"</td></tr>");
+            }
+        }
+    </script>
+    <body>
+        <button onclick="xmlparse()">Parse Data</button>
+    </body>
+</html>
